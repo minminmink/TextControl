@@ -1,0 +1,5 @@
+/Users/minminmink/Documents/GitHub/TextControl/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/minminmink/Documents/GitHub/TextControl/bin/Debug/TextControl.exe.mdb
+/Users/minminmink/Documents/GitHub/TextControl/bin/Debug/TextControl.exe
+/Users/minminmink/Documents/GitHub/TextControl/obj/x86/Debug/TextControl.exe
+/Users/minminmink/Documents/GitHub/TextControl/obj/x86/Debug/TextControl.exe.mdb
