@@ -3,7 +3,7 @@
  *  Program.cs
  *
  *  [[ Summary ]]
- *    entory point for text-control
+ *    entry point for text-control
  *
  *  [[ Object Related figure ]]
  *
@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace TextControl {
 
@@ -30,17 +31,23 @@ namespace TextControl {
 
 		/* #########################################################################################
 		 *
-		 *   entori point
+		 *   entry point
 		 *
 		 * ###################################################################################### */
 
 		public static void Main(string[] args) {
 
-			Console.WriteLine("Hello World!");
+			TextControl.RegexText objRegex = new TextControl.RegexText();
+			ArrayList lstMatch = objRegex.extractWord("/Users/minminmink/Documents/test.txt",
+				"(CLASS) +(?<class>[^¥.]+)", "class");
+
+			foreach (string strWord in lstMatch) {
+				Console.WriteLine(strWord);
+			}
 		}
 	}
 
-	class Regex {
+	class RegexText {
 
 		/* #########################################################################################
 		 *
@@ -48,24 +55,27 @@ namespace TextControl {
 		 *
 		 * ###################################################################################### */
 
-		public ArrayList extractWord(string strPathSrc, string strMatch, string strGroup) {
+		public ArrayList extractWord(string strPathSrc, string strRegex, string strGroup) {
 
 			// load text-file
+			//StreamReader stmReader = new StreamReader(strPathSrc, 
+			//	Encoding.GetEncoding("Shift_JIS"));
 			StreamReader stmReader = new StreamReader(strPathSrc, 
-				Encoding.GetEncoding ("Shift_JIS"));
+				Encoding.GetEncoding("UTF-8"));
 			string strTextFile = stmReader.ReadToEnd();
 			stmReader.Close();
 
-			// extract
+			// extract match's text
 			ArrayList lstMatch = new ArrayList();
-			Regex rexRegex = new Regex("(CLASS) +(?<class>.+)¥.",
-				RegexOptions.IgnoreCase | RegexOptions.Singleline);
-			for (Match mthMatch = rexRegex.Match(strMatch);
+			Regex rexRegex = new Regex(strRegex,
+				RegexOptions.IgnoreCase | RegexOptions.Multiline);
+			for (Match mthMatch = rexRegex.Match(strTextFile);
 				 mthMatch.Success;
-				 mthMatch.NextMatch()) {
+				 mthMatch = mthMatch.NextMatch()) {
 				lstMatch.Add(mthMatch.Groups[strGroup].Value);
 			}
-		}
 
+			return lstMatch;
+		}
 	}
 }
